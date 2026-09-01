@@ -14,3 +14,25 @@ Lakeflow (Delta Live Tables) pipelines, a scheduled job, and a live sales dashbo
 - `stream_events_notebook.py` — import into your Databricks workspace
   (Workspace → Import) as the `04_stream_events` notebook. Run it in lesson 5 to
   simulate the live order feed: 60 JSON files, 25 events each, one every 5 seconds.
+
+## 🏗️ Project Architecture
+
+The project follows a **Databricks Lakehouse Medallion Architecture** and supports
+both batch and streaming data ingestion.
+
+### Data Flow
+
+- **Batch:** CSV files → `COPY INTO` → Bronze
+- **Streaming:** JSON events → Auto Loader → Bronze
+- **Bronze:** Raw ingested data
+- **Silver:** Cleaned and deduplicated data
+- **Gold:** Business-ready datasets for analytics
+- **Delta Live Tables / Lakeflow:** Data transformation pipelines
+- **Databricks Job:** Schedules and orchestrates the pipeline
+- **Dashboard:** Displays sales and customer insights
+
+### Architecture Diagram
+
+<p align="center">
+  <img src="architecture.png" alt="ShopStream Databricks Lakehouse Architecture" width="100%">
+</p>
